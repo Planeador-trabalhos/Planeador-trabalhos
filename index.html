@@ -1482,7 +1482,7 @@ saveBtn.onclick = async () => {
     done: false
   };
   const attachFile = fAttachment.files[0];
-  const shareEmail = document.getElementById("fShareEmail").value.trim();
+  const shareEmail = document.getElementById("fShareEmail").value.trim().toLowerCase();
   tasks.push(newTask);
   await syncTaskRemote(newTask);
   addTaskToGoogleCalendar(newTask);
@@ -2008,7 +2008,7 @@ async function shareTask(taskId) {
   if (!email) return;
   const res = await supabaseRequest("rpc/share_task_by_email", {
     method: "POST",
-    body: JSON.stringify({ p_task_id: taskId, p_email: email.trim() }),
+    body: JSON.stringify({ p_task_id: taskId, p_email: email.trim().toLowerCase() }),
   });
   if (res && res.ok) {
     alert("Partilhado! A pessoa já o vê assim que iniciar sessão na conta dela.");
@@ -2022,7 +2022,7 @@ document.getElementById("shareCalendarBtn").addEventListener("click", async () =
   if (!email) return;
   const res = await supabaseRequest("rpc/share_calendar_by_email", {
     method: "POST",
-    body: JSON.stringify({ p_email: email.trim() }),
+    body: JSON.stringify({ p_email: email.trim().toLowerCase() }),
   });
   if (res && res.ok) {
     alert("Agenda partilhada! Os teus trabalhos e eventos já aparecem na conta dessa pessoa.");
